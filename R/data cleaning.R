@@ -3,6 +3,7 @@
 ## set up GEOmetadb GEO metadata database for GEO data exploration  --  useful for screening GEO data sets
 ##  skip down to the next double hashmarks if you just want the code to download the data for the expression sets...
 library("GEOmetadb")
+library("stringr")
 sqldb <- 'C:/Users/user/Documents/GitHub/pigRpeople/GEOmetadb.sqlite' # download from 11/1/13
 con <- dbConnect(SQLite(),sqldb) 
 
@@ -124,7 +125,7 @@ gsenames <- c("href", "plung1", "plung2", "plung3", "plung4", "plung5", "hlung",
 ann_file <- c(T,F,F,F,F,F,F,F,T,F,T,T,T,T,F,T)
 
 # # check GEOmetadb for platforms used in selected series.  necessary for determining if annotation files exist for automatic construction of annotated expression set objects.
-# 
+piggpl <- c("GPL1881", "GPL6173", "GPL10162", "GPL16569", "GPL7151", "GPL3533") 
 # geoConvert(series, out_type = "gpl", sqlite = 'C:/Users/user/Documents/GitHub/pigRpeople/GEOmetadb.sqlite') 
 # $gpl
 #    from_acc   to_acc
@@ -158,4 +159,5 @@ length(gsematrix) <- 16
 names(gsematrix) <- gsenames
 for(i in 1:16){gsematrix[[i]] <- getGEO(GEO = series[i], destdir = 'getgeo', AnnotGPL = ann_file[i])}
 
-# plung4_ann <- getGEO("GPL1881", destdir = 'getgeo', AnnotGPL = TRUE) # probably not necessary
+gsmlists <- gse2gsm(series)
+names(gsmlists) <- gsenames
