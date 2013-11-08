@@ -1,81 +1,109 @@
-# Version info: R 2.14.1, Biobase 2.15.3, GEOquery 2.23.2, limma 3.10.1
-# R scripts generated  Thu Nov 7 16:42:16 EST 2013
+# human lung transplant data set number 1
 
 ################################################################
-#   Differential expression analysis with limma
-library(Biobase)
-library(GEOquery)
+# setup & description
+
+hlungtx1 <- gsematrix$hlungtx1
+hlungtx1 <- hlungtx1[[1]]
+
+# > hlungtx1
+# ExpressionSet (storageMode: lockedEnvironment)
+# assayData: 17635 features, 50 samples 
+#   element names: exprs 
+# protocolData: none
+# phenoData
+#   sampleNames: GSM198616 GSM198617 ... GSM198665 (50 total)
+#   varLabels: title geo_accession ... data_row_count (32 total)
+#   varMetadata: labelDescription
+# featureData
+#   featureNames: AFFX-BioB-3_at AFFX-BioB-5_at ... XR_001531_at (17635 total)
+#   fvarLabels: ID Gene title ... GO:Component ID (21 total)
+#   fvarMetadata: Column Description labelDescription
+# experimentData: use 'experimentData(object)'
+# Annotation: GPL5356 
+
+# > pData(hlungtx1)[1,]    # geo sample GSM198616
+#                    title                     status submission_date last_update_date type channel_count
+#  6416_Lung developed PGD      Public on Jun 06 2007     Jun 06 2007      Jun 06 2007  RNA             1
+
+#                                                                                   source_name_ch1          organism_ch1
+#  lung biopsies from the anterior right middle lobe or lingula immediately prior to cold-flushing.          Homo sapiens
+#           characteristics_ch1 
+#  P/F ratio at T0:180    total RNA
+#                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             extract_protocol_ch1
+#  Single isolates of donor lung samples were homogenised in the presence of RNAzolB and finally dissolved in RNase-free H2O.  25 micro-grams of total RNA was treated with DNase using the Qiagen RNase-free DNase kit and samples were further purified using RNeasy spin columns (Qiagen, Valencia, CA).  Total RNA treated with DNase was dissolved in RNase-free H2O to a final concentration of 0.2 g/l.  RNA quality was assessed by 1% agarose gel electrophoresis in the presence of ethidium bromide.  Samples that did not reveal intact and approximately equal 18S and 28S ribosomal bands were excluded from further study.
+#  label_ch1                                                                                          label_protocol_ch1
+#     biotin Biotinylated cRNA were prepared according to the standard Affymetrix protocol from 25 micrograms total RNA.
+
+#  hyb_protocol
+#  Following fragmentation, 10 micrograms of cRNA were hybridized for 16 hr at 45C on GeneChip Human Genome Array (HGU133Av2). GeneChips were washed and stained in the Affymetrix Fluidics Station 450.
+#                                                                                           scan_protocol
+#  Affymetrix GeneArray scanner 3000. Image analysis was performed with the Affymetrix GeneChip software.
+
+#   description
+#  Samples were immediately snap-frozen in liquid nitrogen and then stored in a -70Â° Celsius freezer until used for analysis.  An area of lung tissue approximately 1 x 1 cm was isolated and excised using 2 staple lines from a 30 mm EndoGIA stapler (US Surgical, Norwalk, CT).
+
+#                                                data_processing platform_id contact_name      contact_email contact_phone
+#  The data were normalised using gcRMA.  Log2-transformed data.     GPL5356  Monika,,Ray mray@cse.wustl.edu    3149358788
+# contact_fax                  contact_institute                contact_address contact_city contact_state
+#   3149356160 Washington University in St. Louis 1 Brookings Deive P O Box 1045    St. Louis            MO
+
+#  contact_zip/postal_code contact_country
+#                    63112             USA
+#                                                                supplementary_file data_row_count
+#  ftp://ftp.ncbi.nlm.nih.gov/pub/geo/DATA/supplementary/samples/GSM198nnn//.CEL.gz          17635
+
+#####   Differential expression analysis with limma
 library(limma)
 
-# load series and platform data from GEO
-
-gset <- getGEO("GSE8021", destdir = 'getgeo', GSEMatrix =TRUE)
-if (length(gset) > 1) idx <- grep("GPL5356", attr(gset, "names")) else idx <- 1
-gset <- gset[[idx]]
-
-# make proper column names to match toptable 
-fvarLabels(gset) <- make.names(fvarLabels(gset))
+# make proper column names to match toptable (no white space)
+fvarLabels(hlungtx1) <- make.names(fvarLabels(hlungtx1))
 
 # group names for all samples
-sml <- c("G0","G0","G1","G0","G0","G0","G1","G1","G0","G0","G1","G1","G1","G1","G1","G1","G1","G1","G1","G1","G1","G0","G0","G1","G0","G1","G1","G1","G1","G1","G0","G0","G0","G1","G0","G1","G0","G1","G1","G1","G1","G1","G1","G1","G1","G0","G1","G1","G1","G1");
-
-# log2 transform
-ex <- exprs(gset)
-qx <- as.numeric(quantile(ex, c(0., 0.25, 0.5, 0.75, 0.99, 1.0), na.rm=T))
-LogC <- (qx[5] > 100) ||
-          (qx[6]-qx[1] > 50 && qx[2] > 0) ||
-          (qx[2] > 0 && qx[2] < 1 && qx[4] > 1 && qx[4] < 2)
-if (LogC) { ex[which(ex <= 0)] <- NaN
-  exprs(gset) <- log2(ex) }
+sml <- c("case","case","control","case","case","case","control","control","case","case","control","control","control","control","control","control","control","control","control","control","control","case","case","control","case","control","control","control","control","control","case","case","case","control","case","control","case","control","control","control","control","control","control","control","control","case","control","control","control","control")
 
 # set up the data and proceed with analysis
 fl <- as.factor(sml)
-gset$description <- fl
-design <- model.matrix(~ description + 0, gset)
+hlungtx1$description <- fl  # see above for original description
+design <- model.matrix(~ description + 0, hlungtx1)
 colnames(design) <- levels(fl)
-fit <- lmFit(gset, design)
-cont.matrix <- makeContrasts(G1-G0, levels=design)
+fit <- lmFit(hlungtx1, design)
+cont.matrix <- makeContrasts(control-case, levels=design)
 fit2 <- contrasts.fit(fit, cont.matrix)
 fit2 <- eBayes(fit2, 0.01)
-tT <- topTable(fit2, adjust="fdr", sort.by="B", number=250)
-
-# load NCBI platform annotation
-gpl <- annotation(gset)
-platf <- getGEO(gpl, destdir = 'getgeo', AnnotGPL=TRUE)
-ncbifd <- data.frame(attr(dataTable(platf), "table"))
-
-# replace original platform annotation
-tT <- tT[setdiff(colnames(tT), setdiff(fvarLabels(gset), "ID"))]
-tT <- merge(tT, ncbifd, by="ID")
-tT <- tT[order(tT$P.Value), ]  # restore correct order
-
-tT <- subset(tT, select=c("ID","adj.P.Val","P.Value","t","B","logFC","Gene.symbol","Gene.title"))
-write.table(tT, file=stdout(), row.names=F, sep="\t")
+hlungtx1.tT <- topTable(fit2, adjust="fdr", sort.by="B", number=500)[c(-5, -6, -7, -11, -12, -13)]
 
 ################################################################
 #   Boxplot for selected GEO samples
-library(Biobase)
-library(GEOquery)
-
-# load series and platform data from GEO
-
-gset <- getGEO("GSE8021", destdir = 'getgeo', GSEMatrix =TRUE)
-if (length(gset) > 1) idx <- grep("GPL5356", attr(gset, "names")) else idx <- 1
-gset <- gset[[idx]]
-
-# group names for all samples in a series
-sml <- c("G0","G0","G1","G0","G0","G0","G1","G1","G0","G0","G1","G1","G1","G1","G1","G1","G1","G1","G1","G1","G1","G0","G0","G1","G0","G1","G1","G1","G1","G1","G0","G0","G0","G1","G0","G1","G0","G1","G1","G1","G1","G1","G1","G1","G1","G0","G1","G1","G1","G1")
 
 # order samples by group
-ex <- exprs(gset)[ , order(sml)]
+ex <- exprs(hlungtx1)[ , order(sml)]
 sml <- sml[order(sml)]
 fl <- as.factor(sml)
-labels <- c("PGD","no PGD")
+labels <- c("primary graft disease (PGD)","no PGD")
 
 # set parameters and draw the plot
 palette(c("#dfeaf4","#f4dfdf", "#AABBCC"))
-dev.new(width=4+dim(gset)[[2]]/5, height=6)
-par(mar=c(2+round(max(nchar(sampleNames(gset)))/2),4,2,1))
-title <- paste ("GSE8021", '/', annotation(gset), " selected samples", sep ='')
+dev.new(width=4+dim(hlungtx1)[[2]]/5, height=6)
+par(mar=c(2+round(max(nchar(sampleNames(hlungtx1)))/2),4,2,1))
+title <- paste ("GSE8021","(transplanted human lung tissue)", " log2 transformed expression levels", sep ='')
 boxplot(ex, boxwex=0.6, notch=T, main=title, outline=FALSE, las=2, col=fl)
-legend("topleft", labels, fill=palette(), bty="n")
+legend("topleft", labels, inset = c(.1, .2), fill=palette())
+
+################################################################
+#   construct moses dataset
+
+# get probe x sample log2 normalized expression level matrix from expression set
+hlungtx1.moses <- as.data.frame(exprs(hlungtx1))
+
+# median normalize with med.normalize() from "data cleaning.R" and transpose to moses form
+hlungtx1.moses <- t(lapply(hlungtx1.moses, med.normalize))
+
+# add control binary (cases are transplants resulting in primary graft disfunction)
+controls <- c(0,0,1,0,0,0,1,1,0,0,1,1,1,1,1,1,1,1,1,1,1,0,0,1,0,1,1,1,1,1,0,0,0,1,0,1,0,1,1,1,1,1,1,1,1,0,1,1,1,1)
+hlungtx1.moses <- as.data.frame(cbind(controls, hlungtx1.moses))
+
+# remove control spots
+gpl5356.controls <- as.character(fData(hlungtx1)$ID[fData(hlungtx1)$Platform_SPOTID == "--CONTROL"])
+hlungtx1.moses <- hlungtx1.moses[!(names(hlungtx1.moses) %in% gpl5356.controls)]
+
