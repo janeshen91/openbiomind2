@@ -73,8 +73,11 @@ fit2 <- contrasts.fit(fit, cont.matrix)
 fit2 <- eBayes(fit2, 0.01)
 hlungtx1.tT <- topTable(fit2, adjust="fdr", sort.by="B", number=500)[c(-5, -6, -7, -11, -12, -13)]
 
+# export file
+write.csv(hlungtx1.tT, file = "results/transplant_samples/hlungtx1_diffex500.csv", row.names = FALSE)
+
 ################################################################
-#   Boxplot for selected GEO samples
+#   Boxplot for selected GEO samples (note:  the .jpg & .svg files in ~/openbiomind2/results/transplant_samples were exported from RStudio environment)
 
 # order samples by group
 ex <- exprs(hlungtx1)[ , order(sml)]
@@ -94,16 +97,18 @@ legend("topleft", labels, inset = c(.1, .2), fill=palette())
 #   construct moses dataset
 
 # get probe x sample log2 normalized expression level matrix from expression set
-hlungtx1.moses <- as.data.frame(exprs(hlungtx1))
+hlungtx1.moses <- exprs(hlungtx1)
 
-# median normalize with med.normalize() from "data cleaning.R" and transpose to moses form
-hlungtx1.moses <- t(lapply(hlungtx1.moses, med.normalize))
+#median normalize with med.normalize() from "data cleaning.R"
+hlungtx1.moses <- med.normalize(hlungtx1.moses)
 
 # add control binary (cases are transplants resulting in primary graft disfunction)
 controls <- c(0,0,1,0,0,0,1,1,0,0,1,1,1,1,1,1,1,1,1,1,1,0,0,1,0,1,1,1,1,1,0,0,0,1,0,1,0,1,1,1,1,1,1,1,1,0,1,1,1,1)
-hlungtx1.moses <- as.data.frame(cbind(controls, hlungtx1.moses))
+hlungtx1.moses <- t(rbind(controls, hlungtx1.moses))
 
 # remove control spots
 gpl5356.controls <- as.character(fData(hlungtx1)$ID[fData(hlungtx1)$Platform_SPOTID == "--CONTROL"])
-hlungtx1.moses <- hlungtx1.moses[!(names(hlungtx1.moses) %in% gpl5356.controls)]
+hlungtx1.moses <- hlungtx1.moses[,!(colnames(hlungtx1.moses) %in% gpl5356.controls)]
 
+# export file
+write.csv(hlungtx1.moses, file = "results/transplant_samples/hlungtx1_moses.csv")
