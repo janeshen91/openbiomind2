@@ -52,6 +52,13 @@ for(i in 1:16){gsematrix[[i]] <- getGEO(GEO = series[i], destdir = 'getgeo', Ann
 
 ## apply median norm to object
 
-med.normalize <- function(vector) {
-  return(as.numeric(vector >= median(vector)))
+med.normalize <- function(mat) {
+  out <- mat
+  for (i in seq(dim(mat)[2])) { 
+    vect <- mat[,i]
+    med <- median(vect)
+    out[,i] <- as.numeric(vect >= med)
+  }
+  return(out)
 }
+
