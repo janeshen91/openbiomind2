@@ -56,7 +56,7 @@ med.normalize <- function(mat) {
   out <- mat
   for (i in seq(dim(mat)[2])) { 
     vect <- mat[,i]
-    med <- median(vect)
+    med <- median(vect, na.rm = TRUE)
     out[,i] <- as.numeric(vect >= med)
   }
   return(out)

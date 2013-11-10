@@ -62,7 +62,10 @@ fvarLabels(hlungtx1) <- make.names(fvarLabels(hlungtx1))
 # group names for all samples
 sml <- c("case","case","control","case","case","case","control","control","case","case","control","control","control","control","control","control","control","control","control","control","control","case","case","control","case","control","control","control","control","control","case","case","case","control","case","control","case","control","control","control","control","control","control","control","control","case","control","control","control","control")
 
-# set up the data and proceed with analysis
+################################################################
+#   differential gene expression by empirical bayes linear models for 1 channel array
+
+# set up the data and apply lmFit and eBayes with contrasts
 fl <- as.factor(sml)
 hlungtx1$description <- fl  # see above for original description
 design <- model.matrix(~ description + 0, hlungtx1)
