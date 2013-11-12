@@ -62,3 +62,5 @@ med.normalize <- function(mat) {
   return(out)
 }
 
+#  get unither xenolung genes of interest reference table
+xlungGOI <- read.csv("~/GitHub/openbiomind2/getgeo/xlungGOI.csv")

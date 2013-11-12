@@ -115,3 +115,33 @@ hlungtx1.moses <- hlungtx1.moses[,!(colnames(hlungtx1.moses) %in% gpl5356.contro
 
 # export file
 write.csv(hlungtx1.moses, file = "results/transplant_samples/hlungtx1_moses.csv")
+
+#################################################################
+#  analize moses results from obm2.example.R
+
+# annotate ranked list of probes from moses runs
+hlungtx1.results <- merge(hlungtx1.probes, fData(hlungtx1), by.x = "probe", by.y = "ID", all.x = TRUE)
+
+# merge empirical Bayes ranking results
+hlungtx1.results <- merge(hlungtx1.results, hlungtx1.tT[,c(1,16:21)], by.x = "probe", by.y = "ID", all.x = TRUE)
+
+hlungtx1.results <- hlungtx1.results[order(hlungtx1.results$score, decreasing = TRUE),]
+
+# > hlungtx1.results[!is.na(hlungtx1.results$B),c(1:6, 29)]
+#           probe con_low score
+# 21 NM_006456_at    TRUE    -6
+# 37 NM_025103_at   FALSE    -1
+#                                                                                                       Gene.title Gene.symbol
+# 21 ST6 (alpha-N-acetyl-neuraminyl-2,3-beta-galactosyl-1,3)-N-acetylgalactosaminide alpha-2,6-sialyltransferase 2  ST6GALNAC2
+# 37                                                           intraflagellar transport 74 homolog (Chlamydomonas)       IFT74
+#    Gene.ID         B
+# 21   10610 -3.222587
+# 37   80173 -2.616433
+
+# export results to csv
+write.csv(hlungtx1.results, file = "results/transplant_samples/hlungtx1_results.csv")
+
+
+
+
+
