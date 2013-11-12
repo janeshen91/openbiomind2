@@ -1,0 +1,86 @@
+Gene,Description
+ABO,"ABO blood group (transferase A, alpha 1-3-N-acetylgalactosaminyltransferase; transferase B, alpha 1-3-galactosyltransferase)"
+ABO.DUP1,"ABO blood group (transferase A, alpha 1-3-N-acetylgalactosaminyltransferase; transferase B, alpha 1-3-galactosyltransferase) (Porcine Duplicate 1)"
+ADAMTS13,"ADAM metallopeptidase with thrombospondin type 1 motif, 13"
+ADORA2A,adenosine A2a receptor
+AGER,advanced glycosylation end product-specific receptor
+ASGR1,asialoglycoprotein receptor 1
+B2M,beta-2-microglobulin
+B2M.DUP1,beta-2-microglobulin (Porcine Duplicate 1)
+CD46,"CD46 molecule, complement regulatory protein"
+CD46.DUP1,"CD46 molecule, complement regulatory protein (Porcine Duplicate 1)"
+CD47,CD47 molecule
+CD55,"CD55 molecule, decay accelerating factor for complement (Cromer blood group)"
+CD59,"CD59 molecule, complement regulatory protein"
+CD74,"CD74 molecule, major histocompatibility complex, class II invariant chain"
+CMAHP,"cytidine monophospho-N-acetylneuraminic acid hydroxylase, pseudogene (Porcine Neu5Gc)"
+DARC,"Duffy blood group, chemokine receptor"
+DOCK4,Uncharacterized protein [Source:UniProtKB/TrEMBL;Acc:I3L721]
+ENSSSCG00000015182,Uncharacterized protein [Source:UniProtKB/TrEMBL;Acc:F1S803]
+ENSSSCG00000021996,Uncharacterized protein [Source:UniProtKB/TrEMBL;Acc:I3LP74]
+ENSSSCG00000022059,Uncharacterized protein [Source:UniProtKB/TrEMBL;Acc:I3LK51]
+ENSSSCG00000022701,Uncharacterized protein [Source:UniProtKB/TrEMBL;Acc:I3LKJ7]
+ENSSSCG00000023467,Glutathione S-transferase [Source:UniProtKB/TrEMBL;Acc:I3LBL7]
+ENSSSCG00000024402,Uncharacterized protein [Source:UniProtKB/TrEMBL;Acc:I3LQ17]
+ENSSSCG00000025858,Uncharacterized protein [Source:UniProtKB/TrEMBL;Acc:I3LP72]
+F2R,coagulation factor II (thrombin) receptor
+F2RL1,coagulation factor II (thrombin) receptor-like 1
+F2RL2,coagulation factor II (thrombin) receptor-like 2
+F2RL3,coagulation factor II (thrombin) receptor-like 3
+F3,"coagulation factor III (thromboplastin, tissue factor)"
+FAS,"Fas (TNF receptor superfamily, member 6)"
+FASLG,"Fas ligand (TNF superfamily, member 6)"
+FUT1,"fucosyltransferase 1 (galactoside 2-alpha-L-fucosyltransferase, H blood group)"
+FUT2,fucosyltransferase 2 (secretor status included)
+GCNT2,"glucosaminyl (N-acetyl) transferase 2, I-branching enzyme (I blood group)"
+GGTA1,"glycoprotein, alpha-galactosyltransferase 1 (Porcine alpha-Gal)"
+HMGB1,high mobility group box 1
+HSPA9,heat shock 70kDa protein 9 (mortalin)
+IFNA1,"interferon, alpha 1"
+IFNB1,"interferon, beta 1, fibroblast"
+IFNG,"interferon, gamma"
+IFNGR1,interferon gamma receptor 1
+IL25,interleukin 25 [Source:HGNC Symbol;Acc:13765]
+ITGA2,"integrin, alpha 2 (CD49B, alpha 2 subunit of VLA-2 receptor)"
+ITGA2B,"integrin, alpha 2b (platelet glycoprotein IIb of IIb/IIIa complex, antigen CD41)"
+ITGB1,"Sus scrofa integrin, beta 1 (fibronectin receptor, beta polypeptide, antigen CD29 includes MDF2, MSK12) (ITGB1)"
+ITGB3,"integrin, beta 3 (platelet glycoprotein IIIa, antigen CD61)"
+LEPR,leptin receptor precursor [Source:RefSeq peptide;Acc:NP_001019758]
+MEGF10,Uncharacterized protein [Source:UniProtKB/TrEMBL;Acc:I3LK46]
+NT5E,"5'-nucleotidase, ecto (CD73)"
+PECAM1,platelet/endothelial cell adhesion molecule 1
+PLAT,"plasminogen activator, tissue"
+PLAU,"plasminogen activator, urokinase"
+PROCR,"protein C receptor, endothelial"
+PRRG3,proline rich Gla (G-carboxyglutamic acid) 3 (transmembrane) [Source:HGNC Symbol;Acc:30798]
+PSMB8,"Sus scrofa proteasome (prosome, macropain) subunit, beta type, 8 (large multifunctional peptidase 7) (PSMB8), mRNA. [Source:RefSeq mRNA;Acc:NM_213935]"
+RhD,"Rh blood group, D antigen"
+SERPINE1,"serpin peptidase inhibitor, clade E (nexin, plasminogen activator inhibitor type 1), member 1"
+SERPINE2,"serpin peptidase inhibitor, clade E (nexin, plasminogen activator inhibitor type 1), member 2"
+SERPING1,"serpin peptidase inhibitor, clade G (C1 inhibitor), member 1"
+SLA-1,Sus scrofa MHC class I antigen (Also known as PD1 or SLA-B)
+SLA-11,"Sus scrofa MHC class I antigen 11 (SLA-11), pseudogene"
+SLA-2,"Sus scrofa MHC class I antigen 1 (SLA-2), mRNA"
+SLA-3,Sus scrofa MHC class I antigen 3
+SLA-4,Pseudo gene
+SLA-5,MHC-I Uncharacterized protein
+SLA-6,"Sus scrofa MHC class I antigen 6 (SLA-6), mRNA"
+SLA-7,"Sus scrofa MHC class I antigen 7(SLA-7), mRNA"
+SLA-8,"Sus scrofa MHC class I antigen 8 (SLA-8), mRNA"
+SLA-9,Sus scrofa MHC class I antigen 11 - pseudogene
+SLA-DMA,Sus scrofa SLA-DM alpha chain (SLA-DMA)
+SLA-DMB,Sus scrofa SLA-DM beta chain (SLA-DMB)
+SLA-DOA,"major histocompatibility complex, class II, DO alpha"
+SLA-DQA1,MHC class II histocompatibility antigen SLA-DQA
+SLA-DQB1,MHC class II histocompatibility antigen SLA-DQB
+SLA-DQB2,MHC class II histocompatibility antigen SLA-DQB2
+SLA-DRA,MHC class II DR-alpha
+SLA-DRB1,MHC class II histocompatibility antigen SLA-DRB1
+SLC4A1,"solute carrier family 4, anion exchanger, member 1 (erythrocyte membrane protein band 3, Diego blood group)"
+SPLUNC1,"BPI fold containing family A, member 1 [Source:HGNC Symbol;Acc:15749]"
+TFPI,tissue factor pathway inhibitor (lipoprotein-associated coagulation inhibitor)
+THBD,thrombomodulin
+TNF,tumor necrosis factor
+TRIO,Uncharacterized protein [Source:UniProtKB/TrEMBL;Acc:I3L9A9]
+UGT2A3,Uncharacterized protein [Source:UniProtKB/TrEMBL;Acc:F1RUQ6]
+VWF,von Willebrand factor
