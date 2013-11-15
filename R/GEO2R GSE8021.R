@@ -116,6 +116,8 @@ hlungtx1.moses <- hlungtx1.moses[,!(colnames(hlungtx1.moses) %in% gpl5356.contro
 # export file
 write.csv(hlungtx1.moses, file = "results/transplant_samples/hlungtx1_moses.csv")
 
+dimnames(hlungtx1.moses)[[2]] <- c("controls", str_sub(dimnames(hlungtx1.moses)[[2]][-1], end = -3)  ##need to test
+
 #################################################################
 #  analize moses results from obm2.example.R
 
