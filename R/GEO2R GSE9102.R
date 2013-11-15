@@ -157,3 +157,4 @@ for(i in seq_along(hlungtx$unigene)){
   if(length(rs[[hlungtx$eg[i]]]) == 0) hlungtx$refseq[i] <- "chk"
   else hlungtx$refseq[i] <- str_c(rs[[hlungtx$eg[i]]][rs[[hlungtx$eg[i]]] %in% dimnames(hlungtx1.moses)[[2]]], collapse = ", ")
 }
+hlungtx$refseq <- map_n(rs, hlungtx$eg, dimnames(hlungtx1.moses)[[2]][-1])

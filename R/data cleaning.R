@@ -64,3 +64,46 @@ med.normalize <- function(mat) {
 
 #  get unither xenolung genes of interest reference table
 xlungGOI <- read.csv("~/GitHub/openbiomind2/getgeo/xlungGOI.csv")
+
+######################################################
+#  probe mapping helper functions
+
+str2char <- function(str, sp = ", ") {
+  lns <- str_count(str, sp) +1
+  vars <- character(lns)
+  for(i in seq_along(vars)) vars[i] <- word(str, i, sep = sp)
+  return(vars)
+}
+
+map_1 <- function(mlist, mvec, miss = "chk"){
+  out <- NULL
+  sq <- length(mvec)
+  length(out) <- sq
+  for(i in seq_len(sq)){
+    if(length(mlist[[mvec[i]]]) == 0) out[i] <- miss 
+    else out[i] <- str_c(mlist[[mvec[i]]], collapse = ", ")
+  }
+  return(out)
+}
+
+map_n <- function(mlist, mvec, fltr = character(0), miss = "chk", sp = ", "){
+  sq <- length(mvec)
+  out <- rep_len("", sq)
+  for(i in seq_len(sq)){
+    if(str_length(mvec[i]) == 0){
+      out[i] <- miss
+      next
+    }
+    else mchar <- str2char(mvec[i])
+    if(length(fltr) == 0){
+      for(j in seq_along(mchar)){out[i] <- str_c(out[i], str_c(mlist[[mchar[j]]], collapse = ", "), collapse = ", ")
+        if(str_length(out[i]) == 0) out[i] <- miss
+      }
+    }
+    else for(j in seq_along(mchar)){
+      out[i] <- str_c(out[i], str_c(mlist[[mchar[j]]][mlist[[mchar[j]]] %in% fltr], collapse = ", "), collapse = ", ")
+      if(str_length(out[i]) == 0) out[i] <- miss
+      }  
+  }
+  return(out)
+}
