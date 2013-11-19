@@ -107,7 +107,8 @@ hlungtx1.probes$con_low <- str_detect(hlungtx1.probes$probe, "!")
 hlungtx1.probes$probe <- str_replace(hlungtx1.probes$probe, "!", "")
 hlungtx1.probes <- unique(hlungtx1.probes[order(hlungtx1.probes$score, decreasing = TRUE),][, c(1,3)])
 hlungtx1.probes$score <- hlungtx1.ranks[as.numeric(row.names(hlungtx1.probes))]
-  
-  ## alternate way to pick it-ems out of perens (not used)
+hlungtx1.probes$refseq <- str_replace(hlungtx1.probes$probe, fixed("_at"), "")  
+
+## alternate way to pick it-ems out of perens (not used)
 # re <- "\\(([^()]+)\\)"
 # gsub(re, "\\1", str_extract_all(combo.all, re)[[2]])
