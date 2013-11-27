@@ -134,27 +134,3 @@ hlungtx2.moses <- t(rbind(controls, hlungtx2.moses))
 # export file
 write.csv(hlungtx2.moses, file = "results/transplant_samples/hlungtx2_moses.csv")
 
-####################################################
-# map probes from hlungtx1 to hlungtx2
-
-x <- org.Hs.egUNIGENE2EG
-mapped_genes <- mappedkeys(x)
-ug <- as.list(x[mapped_genes])
-
-x <- org.Hs.egREFSEQ
-mapped_genes <- mappedkeys(x)
-rs <- as.list(x[mapped_genes])
-
-tx2unigene <- str_split_fixed(fData(hlungtx2)[[3]], fixed("_"), 2)
-hlungtx <- cbind(fData(hlungtx2)[[2]], as.data.frame(tx2unigene, stringsAsFactors = FALSE),)
-hlungtx <- hlungtx[hlungtx$gb_acc != "",]
-names(hlungtx) <- c("gb_acc", "unigene", "symbol")
-for(i in seq_along(hlungtx$unigene)){
-  if(length(ug[[hlungtx$unigene[i]]]) == 0) hlungtx$eg[i] <- "chk" 
-  else hlungtx$eg[i] <- str_c(ug[[hlungtx$unigene[i]]], collapse = ", ")
-}
-for(i in seq_along(hlungtx$unigene)){
-  if(length(rs[[hlungtx$eg[i]]]) == 0) hlungtx$refseq[i] <- "chk"
-  else hlungtx$refseq[i] <- str_c(rs[[hlungtx$eg[i]]][rs[[hlungtx$eg[i]]] %in% dimnames(hlungtx1.moses)[[2]]], collapse = ", ")
-}
-hlungtx$refseq <- map_n(rs, hlungtx$eg, dimnames(hlungtx1.moses)[[2]][-1])

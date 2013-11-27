@@ -89,9 +89,23 @@ combo.v3 <- c(
  , "-6 or(and(or(and(!$NM_000167_at !$NM_000190_at) !$XR_000645_at) !$NM_001632_at) !$NM_006456_at $XR_000963_at) "
 , "-6 or(and(or(and(!$NM_000190_at !$NM_000607_at) !$XR_000645_at) !$NM_001632_at) !$NM_006456_at $XR_000963_at) ")
 
+combo.sa <- moses("-j2 -W1 -u controls -Y sample -a sa --enable-fs=1 -m 1000000 ","hlungtx1_moses.csv")   # run moses on 2 cores sa algo
+
+combo.sa <- c(
+  "0 and(or(and(or(!$NM_001632_at $XM_942583_at) or(!$XM_942334_at !$XM_942389_at !$XM_944396_at !$XM_944795_at) !$NM_005554_at !$XM_931515_at !$XR_000645_at) and(!$NM_000190_at !$XM_944396_at) !$NM_006456_at $XM_942555_at $XR_000963_at) or($NM_004587_at $XM_937178_at !$XM_939750_at)) "
+ , "-1 and(or(and(or(!$NM_001632_at $XM_942583_at) or(!$XM_942334_at !$XM_942389_at !$XM_944396_at !$XM_944795_at) !$NM_005554_at !$XM_931515_at !$XR_000645_at) and(!$NM_000190_at !$XM_944396_at) !$NM_006456_at $XM_942555_at $XR_000963_at) $NM_004587_at) "                                
+ , "-1 or(and(or(!$NM_001632_at $XM_942583_at) or($XM_938127_at !$XM_942334_at !$XM_942389_at !$XM_944396_at !$XM_944795_at) $NM_004587_at !$NM_005554_at !$XM_931515_at !$XR_000645_at) and(!$NM_000190_at !$XM_944396_at) !$NM_006456_at $XM_942555_at $XR_000963_at) "                       
+ , "-1 and(or(and(or(!$NM_001632_at $XM_934710_at $XM_942583_at) or(!$XM_942334_at !$XM_942389_at !$XM_944396_at !$XM_944795_at) !$NM_005554_at !$XM_931515_at !$XR_000645_at) and(!$NM_000190_at !$XM_944396_at) !$NM_006456_at $XM_942555_at $XR_000963_at) $NM_004587_at) "                  
+ , "-1 and(or(and(or(!$NM_001632_at $XM_938127_at $XM_942583_at) or(!$XM_942334_at !$XM_942389_at !$XM_944396_at !$XM_944795_at) !$NM_005554_at !$XM_931515_at !$XR_000645_at) and(!$NM_000190_at !$XM_944396_at) !$NM_006456_at $XM_942555_at $XR_000963_at) $NM_004587_at) "                  
+ , "-1 and(or(and(or(!$NM_001632_at $XM_938301_at $XM_942583_at) or(!$XM_942334_at !$XM_942389_at !$XM_944396_at !$XM_944795_at) !$NM_005554_at !$XM_931515_at !$XR_000645_at) and(!$NM_000190_at !$XM_944396_at) !$NM_006456_at $XM_942555_at $XR_000963_at) $NM_004587_at) "                  
+ , "-1 and(or(and(or(!$NM_001632_at $XM_940791_at $XM_942583_at) or(!$XM_942334_at !$XM_942389_at !$XM_944396_at !$XM_944795_at) !$NM_005554_at !$XM_931515_at !$XR_000645_at) and(!$NM_000190_at !$XM_944396_at) !$NM_006456_at $XM_942555_at $XR_000963_at) $NM_004587_at) "                  
+ , "-1 and(or(and(or(!$NM_001632_at $XM_942314_at $XM_942583_at) or(!$XM_942334_at !$XM_942389_at !$XM_944396_at !$XM_944795_at) !$NM_005554_at !$XM_931515_at !$XR_000645_at) and(!$NM_000190_at !$XM_944396_at) !$NM_006456_at $XM_942555_at $XR_000963_at) $NM_004587_at) "                  
+ , "-1 and(or(and(or(!$NM_001632_at $XM_942389_at $XM_942583_at) or(!$XM_942334_at !$XM_942389_at !$XM_944396_at !$XM_944795_at) !$NM_005554_at !$XM_931515_at !$XR_000645_at) and(!$NM_000190_at !$XM_944396_at) !$NM_006456_at $XM_942555_at $XR_000963_at) $NM_004587_at) "                  
+, "-1 and(or(and(or(!$NM_001632_at $XM_942583_at) or($NM_001632_at !$XM_942334_at !$XM_942389_at !$XM_944396_at !$XM_944795_at) !$NM_005554_at !$XM_931515_at !$XR_000645_at) and(!$NM_000190_at !$XM_944396_at) !$NM_006456_at $XM_942555_at $XR_000963_at) $NM_004587_at) "   )               
+
 ## extract samples
 
-combo.all <- c(combo.v, combo.vm, combo.v1, combo.v1m, combo.v3, combo.v2)      # put all moses combo results in a vector
+combo.all <- c(combo.v, combo.vm, combo.v1, combo.v1m, combo.v3, combo.v2, combo.sa)      # put all moses combo results in a vector
 hlungtx1.combo <- str_split_fixed(combo.all, " ", 2)[,2]                        # extract combo program strings
 hlungtx1.ranks <- as.numeric(str_split_fixed(combo.all, " ", 2)[,1])            # extract combo program scores
 hlungtx1.probes <- str_replace_all(hlungtx1.combo, "and+", "")            ##
@@ -107,8 +121,10 @@ hlungtx1.probes$con_low <- str_detect(hlungtx1.probes$probe, "!")
 hlungtx1.probes$probe <- str_replace(hlungtx1.probes$probe, "!", "")
 hlungtx1.probes <- unique(hlungtx1.probes[order(hlungtx1.probes$score, decreasing = TRUE),][, c(1,3)])
 hlungtx1.probes$score <- hlungtx1.ranks[as.numeric(row.names(hlungtx1.probes))]
-hlungtx1.probes$refseq <- str_replace(hlungtx1.probes$probe, fixed("_at"), "")  
-
-## alternate way to pick it-ems out of perens (not used)
+  
+  ## alternate way to pick it-ems out of perens (not used)
 # re <- "\\(([^()]+)\\)"
 # gsub(re, "\\1", str_extract_all(combo.all, re)[[2]])
+
+
+`hc-ss-100k` <- read.csv("~/GitHub/Rmoses/results/hc-ss-m100000.csv")
